@@ -1,0 +1,637 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+:root {
+    --background: #f5f5f7;
+    --surface: #ffffff;
+    --surface-hover: #eeeeF2;
+
+    --text: #17171a;
+    --secondary: #77777f;
+
+    --border: #dedee3;
+
+    --accent: #17171a;
+
+    --shadow:
+        0 6px 20px rgba(0, 0, 0, 0.06);
+}
+
+
+body {
+    min-height: 100vh;
+
+    background: var(--background);
+    color: var(--text);
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
+
+    transition:
+        background .2s ease,
+        color .2s ease;
+}
+
+
+/* =========================
+   DARK
+========================= */
+
+body.dark {
+    --background: #101012;
+    --surface: #1a1a1d;
+    --surface-hover: #252529;
+
+    --text: #f5f5f7;
+    --secondary: #9999a2;
+
+    --border: #303036;
+
+    --accent: #ffffff;
+
+    --shadow:
+        0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.topbar {
+    position: sticky;
+
+    top: 0;
+
+    z-index: 20;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding:
+        22px
+        20px
+        16px;
+
+    background:
+        var(--background);
+}
+
+
+.brand h1 {
+    font-size: 26px;
+
+    font-weight: 750;
+
+    letter-spacing: -.8px;
+}
+
+
+.brand span {
+    display: block;
+
+    margin-top: 4px;
+
+    color: var(--secondary);
+
+    font-size: 13px;
+}
+
+
+/* =========================
+   THEME
+========================= */
+
+.icon-button {
+    width: 42px;
+    height: 42px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius: 50%;
+
+    background: var(--surface);
+
+    color: var(--text);
+
+    font-size: 19px;
+
+    cursor: pointer;
+}
+
+
+.icon-button:active {
+    transform: scale(.9);
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+main {
+    width:
+        min(
+            900px,
+            100%
+        );
+
+    margin: auto;
+
+    padding:
+        0
+        18px
+        110px;
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+.search-container {
+    position: relative;
+
+    margin-bottom: 12px;
+}
+
+
+#searchInput {
+    width: 100%;
+
+    height: 50px;
+
+    padding:
+        0
+        45px
+        0
+        17px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius: 15px;
+
+    outline: none;
+
+    background: var(--surface);
+
+    color: var(--text);
+
+    font-size: 15px;
+
+    -webkit-appearance: none;
+}
+
+
+#searchInput:focus {
+    border-color:
+        var(--text);
+}
+
+
+#searchInput::placeholder {
+    color: var(--secondary);
+}
+
+
+.clear-search {
+    display: none;
+
+    position: absolute;
+
+    right: 8px;
+    top: 50%;
+
+    transform:
+        translateY(-50%);
+
+    width: 33px;
+    height: 33px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background:
+        var(--surface-hover);
+
+    color: var(--secondary);
+
+    font-size: 20px;
+}
+
+
+.clear-search.show {
+    display: block;
+}
+
+
+/* =========================
+   CONTROLS
+========================= */
+
+.controls {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 10px;
+
+    margin-bottom: 15px;
+
+    overflow-x: auto;
+
+    scrollbar-width: none;
+}
+
+
+.controls::-webkit-scrollbar {
+    display: none;
+}
+
+
+.tabs,
+.capsule-controls {
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    flex-shrink: 0;
+}
+
+
+/* =========================
+   TABS
+========================= */
+
+.tab {
+    border: none;
+
+    padding:
+        9px
+        15px;
+
+    border-radius: 999px;
+
+    background:
+        transparent;
+
+    color:
+        var(--secondary);
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+
+    cursor: pointer;
+}
+
+
+.tab.active {
+    background:
+        var(--accent);
+
+    color:
+        var(--background);
+}
+
+
+/* =========================
+   CAPSULE BUTTONS
+========================= */
+
+.capsule-button {
+    border:
+        1px solid
+        var(--border);
+
+    padding:
+        9px
+        13px;
+
+    border-radius: 999px;
+
+    background:
+        var(--surface);
+
+    color:
+        var(--text);
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+
+    cursor: pointer;
+}
+
+
+.capsule-button:active {
+    transform: scale(.96);
+}
+
+
+.capsule-button.active {
+    background:
+        var(--accent);
+
+    color:
+        var(--background);
+
+    border-color:
+        var(--accent);
+}
+
+
+/* =========================
+   GRID
+========================= */
+
+.sound-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fill,
+            minmax(
+                190px,
+                1fr
+            )
+        );
+
+    gap: 10px;
+}
+
+
+/* =========================
+   SOUND BUTTON
+========================= */
+
+.sound-button {
+    position: relative;
+
+    min-height: 68px;
+
+    padding:
+        13px
+        50px
+        13px
+        16px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius: 16px;
+
+    background:
+        var(--surface);
+
+    color:
+        var(--text);
+
+    text-align: left;
+
+    font-size: 15px;
+
+    font-weight: 650;
+
+    cursor: pointer;
+
+    box-shadow:
+        var(--shadow);
+
+    transition:
+        transform .1s ease,
+        background .15s ease;
+}
+
+
+.sound-button:active {
+    transform:
+        scale(.96);
+}
+
+
+.sound-button.playing {
+    background:
+        var(--surface-hover);
+}
+
+
+/* =========================
+   FAVORITE
+========================= */
+
+.favorite-button {
+    position: absolute;
+
+    right: 8px;
+    top: 50%;
+
+    transform:
+        translateY(-50%);
+
+    width: 35px;
+    height: 35px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background:
+        transparent;
+
+    color:
+        var(--secondary);
+
+    font-size: 20px;
+
+    cursor: pointer;
+}
+
+
+.favorite-button.favorite {
+    color:
+        var(--text);
+}
+
+
+/* =========================
+   DELETE
+========================= */
+
+.delete-button {
+    position: absolute;
+
+    right: 43px;
+    top: 50%;
+
+    transform:
+        translateY(-50%);
+
+    width: 28px;
+    height: 28px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background:
+        transparent;
+
+    color:
+        var(--secondary);
+
+    font-size: 14px;
+
+    cursor: pointer;
+
+    opacity: .7;
+}
+
+
+.delete-button:active {
+    transform:
+        translateY(-50%)
+        scale(.85);
+}
+
+
+/* =========================
+   EMPTY
+========================= */
+
+.empty-message {
+    padding:
+        55px
+        20px;
+
+    text-align: center;
+
+    color:
+        var(--secondary);
+
+    font-size: 14px;
+}
+
+
+.hidden {
+    display: none !important;
+}
+
+
+/* =========================
+   STOP BUTTON
+========================= */
+
+.stop-button {
+    position: fixed;
+
+    right: 18px;
+    bottom: 18px;
+
+    z-index: 100;
+
+    width: 58px;
+    height: 58px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background:
+        var(--accent);
+
+    color:
+        var(--background);
+
+    font-size: 19px;
+
+    box-shadow:
+        0 8px 28px
+        rgba(0, 0, 0, .22);
+
+    cursor: pointer;
+}
+
+
+.stop-button:active {
+    transform:
+        scale(.88);
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 650px) {
+
+    .topbar {
+        padding:
+            19px
+            16px
+            14px;
+    }
+
+
+    .brand h1 {
+        font-size: 23px;
+    }
+
+
+    main {
+        padding:
+            0
+            14px
+            105px;
+    }
+
+
+    .controls {
+        justify-content:
+            flex-start;
+    }
+
+
+    .sound-grid {
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .sound-button {
+        min-height: 64px;
+    }
+
+}
