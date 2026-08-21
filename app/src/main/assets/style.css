@@ -22,6 +22,10 @@
 }
 
 
+/* =========================
+   BODY
+========================= */
+
 body {
     min-height: 100vh;
 
@@ -61,6 +65,43 @@ body.dark {
 
     --shadow:
         0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+
+/* =========================
+   THEME COLORS
+========================= */
+
+/* OCEAN */
+
+body.theme-ocean {
+    --accent: #1677ff;
+}
+
+body.theme-ocean.dark {
+    --accent: #5aa2ff;
+}
+
+
+/* LIME */
+
+body.theme-lime {
+    --accent: #63a300;
+}
+
+body.theme-lime.dark {
+    --accent: #9be33f;
+}
+
+
+/* PURPLE */
+
+body.theme-purple {
+    --accent: #7c3aed;
+}
+
+body.theme-purple.dark {
+    --accent: #a78bfa;
 }
 
 
@@ -112,7 +153,20 @@ body.dark {
 
 
 /* =========================
-   THEME
+   TOPBAR CONTROLS
+========================= */
+
+.topbar-controls {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+}
+
+
+/* =========================
+   THEME BUTTONS
 ========================= */
 
 .icon-button {
@@ -125,18 +179,118 @@ body.dark {
 
     border-radius: 50%;
 
-    background: var(--surface);
+    background:
+        var(--surface);
 
-    color: var(--text);
+    color:
+        var(--text);
 
     font-size: 19px;
+
+    cursor: pointer;
+
+    transition:
+        transform .1s ease,
+        background .15s ease;
+}
+
+
+.icon-button:active {
+    transform:
+        scale(.9);
+}
+
+
+/* =========================
+   THEME MENU
+========================= */
+
+.theme-menu {
+    position: absolute;
+
+    top: 72px;
+
+    right: 20px;
+
+    z-index: 50;
+
+    min-width: 175px;
+
+    padding: 7px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius: 16px;
+
+    background:
+        var(--surface);
+
+    box-shadow:
+        0 10px 35px
+        rgba(0, 0, 0, .15);
+
+    animation:
+        themeMenuIn .15s ease;
+}
+
+
+.theme-option {
+    width: 100%;
+
+    padding:
+        11px
+        12px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background:
+        transparent;
+
+    color:
+        var(--text);
+
+    text-align: left;
+
+    font-size: 14px;
+
+    font-weight: 600;
 
     cursor: pointer;
 }
 
 
-.icon-button:active {
-    transform: scale(.9);
+.theme-option:hover {
+    background:
+        var(--surface-hover);
+}
+
+
+.theme-option:active {
+    transform:
+        scale(.97);
+}
+
+
+@keyframes themeMenuIn {
+
+    from {
+        opacity: 0;
+        transform:
+            translateY(-5px)
+            scale(.97);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            translateY(0)
+            scale(1);
+    }
+
 }
 
 
@@ -190,9 +344,11 @@ main {
 
     outline: none;
 
-    background: var(--surface);
+    background:
+        var(--surface);
 
-    color: var(--text);
+    color:
+        var(--text);
 
     font-size: 15px;
 
@@ -202,12 +358,13 @@ main {
 
 #searchInput:focus {
     border-color:
-        var(--text);
+        var(--accent);
 }
 
 
 #searchInput::placeholder {
-    color: var(--secondary);
+    color:
+        var(--secondary);
 }
 
 
@@ -232,7 +389,8 @@ main {
     background:
         var(--surface-hover);
 
-    color: var(--secondary);
+    color:
+        var(--secondary);
 
     font-size: 20px;
 }
@@ -351,7 +509,8 @@ main {
 
 
 .capsule-button:active {
-    transform: scale(.96);
+    transform:
+        scale(.96);
 }
 
 
@@ -482,48 +641,7 @@ main {
 
 .favorite-button.favorite {
     color:
-        var(--text);
-}
-
-
-/* =========================
-   DELETE
-========================= */
-
-.delete-button {
-    position: absolute;
-
-    right: 43px;
-    top: 50%;
-
-    transform:
-        translateY(-50%);
-
-    width: 28px;
-    height: 28px;
-
-    border: none;
-
-    border-radius: 50%;
-
-    background:
-        transparent;
-
-    color:
-        var(--secondary);
-
-    font-size: 14px;
-
-    cursor: pointer;
-
-    opacity: .7;
-}
-
-
-.delete-button:active {
-    transform:
-        translateY(-50%)
-        scale(.85);
+        var(--accent);
 }
 
 
@@ -632,6 +750,12 @@ main {
 
     .sound-button {
         min-height: 64px;
+    }
+
+
+    .theme-menu {
+        right: 16px;
+        top: 67px;
     }
 
 }
