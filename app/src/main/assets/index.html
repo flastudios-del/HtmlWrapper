@@ -31,13 +31,33 @@
             </span>
         </div>
 
-        <button
-            id="themeButton"
-            class="icon-button"
-            type="button"
-        >
-            ☾
-        </button>
+
+        <div class="topbar-controls">
+
+            <!-- MODO CLARO / OSCURO -->
+
+            <button
+                id="themeButton"
+                class="icon-button"
+                type="button"
+                aria-label="Cambiar modo claro u oscuro"
+            >
+                ☾
+            </button>
+
+
+            <!-- TEMAS -->
+
+            <button
+                id="themeSelectorButton"
+                class="icon-button theme-selector-button"
+                type="button"
+                aria-label="Cambiar tema"
+            >
+                🎨
+            </button>
+
+        </div>
 
     </header>
 
@@ -60,6 +80,7 @@
                 id="clearSearch"
                 class="clear-search"
                 type="button"
+                aria-label="Limpiar búsqueda"
             >
                 ×
             </button>
@@ -94,14 +115,7 @@
 
             <div class="capsule-controls">
 
-                <button
-                    id="addButton"
-                    class="capsule-button"
-                    type="button"
-                >
-                    + Agregar
-                </button>
-
+                <!-- SUPERPOSICIÓN -->
 
                 <button
                     id="overlayButton"
@@ -116,15 +130,46 @@
         </div>
 
 
-        <!-- INPUT OCULTO PARA ARCHIVOS -->
+        <!-- SELECTOR DE TEMAS -->
 
-        <input
-            id="fileInput"
-            type="file"
-            accept=".mp3,.ogg,.wav,audio/mpeg,audio/ogg,audio/wav"
-            multiple
-            hidden
+        <div
+            id="themeMenu"
+            class="theme-menu hidden"
         >
+
+            <button
+                class="theme-option"
+                data-theme="default"
+                type="button"
+            >
+                Predeterminado
+            </button>
+
+            <button
+                class="theme-option"
+                data-theme="ocean"
+                type="button"
+            >
+                Ocean
+            </button>
+
+            <button
+                class="theme-option"
+                data-theme="lime"
+                type="button"
+            >
+                Lime
+            </button>
+
+            <button
+                class="theme-option"
+                data-theme="purple"
+                type="button"
+            >
+                Purple
+            </button>
+
+        </div>
 
 
         <!-- SONIDOS -->
