@@ -4,6 +4,10 @@
 
 const builtInSounds = [
 
+    /* =========================
+       SONIDOS VIEJOS
+    ========================= */
+
     {
         name: "Auraa",
         file: "sounds/auraa.mp3"
@@ -112,6 +116,71 @@ const builtInSounds = [
     {
         name: "Vine Boom",
         file: "sounds/vineboom.mp3"
+    },
+
+
+    /* =========================
+       NUEVOS SONIDOS
+    ========================= */
+
+    {
+        name: "Du bist gut genug",
+        file: "sounds/dubistgutgenug.mp3"
+    },
+
+    {
+        name: "PO Saturado",
+        file: "sounds/pousaturado.mp3"
+    },
+
+    {
+        name: "Among Us Role Reveal",
+        file: "sounds/amongusrolerevealsound.mp3"
+    },
+
+    {
+        name: "67",
+        file: "sounds/67.mp3"
+    },
+
+    {
+        name: "Anime Wow",
+        file: "sounds/animewow.mp3"
+    },
+
+    {
+        name: "Mi Bombo",
+        file: "sounds/mibombo.mp3"
+    },
+
+    {
+        name: "Win XP Error",
+        file: "sounds/winxperror.mp3"
+    },
+
+    {
+        name: "Web WhatsApp",
+        file: "sounds/webwhatsapp.mp3"
+    },
+
+    {
+        name: "WhatsApp Notificación Saturado",
+        file: "sounds/whatsappnotificacionsaturado.mp3"
+    },
+
+    {
+        name: "WhatsApp Notificación Silbido",
+        file: "sounds/whatsappnotificacionsilbido.mp3"
+    },
+
+    {
+        name: "Apple Pay",
+        file: "sounds/applepay.mp3"
+    },
+
+    {
+        name: "iPhone Alarm Radar",
+        file: "sounds/iphonealarmradar.mp3"
     }
 
 ];
@@ -156,14 +225,14 @@ const themeButton =
         "themeButton"
     );
 
-const addButton =
+const themeSelectorButton =
     document.getElementById(
-        "addButton"
+        "themeSelectorButton"
     );
 
-const fileInput =
+const themeMenu =
     document.getElementById(
-        "fileInput"
+        "themeMenu"
     );
 
 const overlayButton =
@@ -176,8 +245,6 @@ const overlayButton =
    STATE
 ===================================================== */
 
-let userSounds = [];
-
 let currentView = "all";
 
 let overlayEnabled = false;
@@ -186,249 +253,16 @@ let activeAudios = [];
 
 
 /* =====================================================
-   INDEXED DB
+   ALL SOUNDS
 ===================================================== */
 
-const DB_NAME =
-    "SoundboardDatabase";
-
-const DB_VERSION = 1;
-
-const STORE_NAME =
-    "userSounds";
-
-let db = null;
-
-
-/* =====================================================
-   OPEN DATABASE
-===================================================== */
-
-function openDatabase() {
-
-    return new Promise(
-        (resolve, reject) => {
-
-            const request =
-                indexedDB.open(
-                    DB_NAME,
-                    DB_VERSION
-                );
-
-
-            request.onupgradeneeded =
-                event => {
-
-                    const database =
-                        event.target.result;
-
-
-                    if (
-                        !database.objectStoreNames
-                            .contains(
-                                STORE_NAME
-                            )
-                    ) {
-
-                        database.createObjectStore(
-                            STORE_NAME,
-                            {
-                                keyPath: "id",
-                                autoIncrement: true
-                            }
-                        );
-
-                    }
-
-                };
-
-
-            request.onsuccess =
-                event => {
-
-                    db =
-                        event.target.result;
-
-                    resolve(db);
-
-                };
-
-
-            request.onerror =
-                () => {
-
-                    reject(
-                        request.error
-                    );
-
-                };
-
-        }
-    );
-
-}
-
-
-/* =====================================================
-   LOAD USER SOUNDS
-===================================================== */
-
-function loadUserSounds() {
-
-    return new Promise(
-        (resolve, reject) => {
-
-            const transaction =
-                db.transaction(
-                    STORE_NAME,
-                    "readonly"
-                );
-
-
-            const store =
-                transaction.objectStore(
-                    STORE_NAME
-                );
-
-
-            const request =
-                store.getAll();
-
-
-            request.onsuccess =
-                () => {
-
-                    userSounds =
-                        request.result || [];
-
-                    resolve(
-                        userSounds
-                    );
-
-                };
-
-
-            request.onerror =
-                () => {
-
-                    reject(
-                        request.error
-                    );
-
-                };
-
-        }
-    );
-
-}
-
-
-/* =====================================================
-   SAVE USER SOUND
-===================================================== */
-
-function saveUserSound(
-    sound
-) {
-
-    return new Promise(
-        (resolve, reject) => {
-
-            const transaction =
-                db.transaction(
-                    STORE_NAME,
-                    "readwrite"
-                );
-
-
-            const store =
-                transaction.objectStore(
-                    STORE_NAME
-                );
-
-
-            const request =
-                store.add(
-                    sound
-                );
-
-
-            request.onsuccess =
-                () => {
-
-                    sound.id =
-                        request.result;
-
-                    resolve(
-                        sound
-                    );
-
-                };
-
-
-            request.onerror =
-                () => {
-
-                    reject(
-                        request.error
-                    );
-
-                };
-
-        }
-    );
-
-}
-
-
-/* =====================================================
-   DELETE USER SOUND
-===================================================== */
-
-function deleteUserSound(
-    id
-) {
-
-    return new Promise(
-        (resolve, reject) => {
-
-            const transaction =
-                db.transaction(
-                    STORE_NAME,
-                    "readwrite"
-                );
-
-
-            const store =
-                transaction.objectStore(
-                    STORE_NAME
-                );
-
-
-            const request =
-                store.delete(
-                    id
-                );
-
-
-            request.onsuccess =
-                () => {
-
-                    resolve();
-
-                };
-
-
-            request.onerror =
-                () => {
-
-                    reject(
-                        request.error
-                    );
-
-                };
-
-        }
+function getAllSounds() {
+
+    return builtInSounds.map(
+        sound => ({
+            ...sound,
+            builtIn: true
+        })
     );
 
 }
@@ -475,9 +309,7 @@ function favoriteKey(
     sound
 ) {
 
-    return sound.id !== undefined
-        ? `user-${sound.id}`
-        : `built-${sound.file}`;
+    return `built-${sound.file}`;
 
 }
 
@@ -542,32 +374,6 @@ function toggleFavorite(
 
 
 /* =====================================================
-   ALL SOUNDS
-===================================================== */
-
-function getAllSounds() {
-
-    return [
-        ...builtInSounds.map(
-            sound => ({
-                ...sound,
-                builtIn: true
-            })
-        ),
-
-        ...userSounds.map(
-            sound => ({
-                ...sound,
-                builtIn: false
-            })
-        )
-
-    ];
-
-}
-
-
-/* =====================================================
    PLAY SOUND
 ===================================================== */
 
@@ -587,10 +393,7 @@ function playSound(
 
     const audio =
         new Audio(
-            sound.file ||
-            URL.createObjectURL(
-                sound.blob
-            )
+            sound.file
         );
 
 
@@ -623,6 +426,14 @@ function playSound(
                     "playing"
                 );
 
+
+                activeAudios =
+                    activeAudios.filter(
+                        item =>
+                            item.audio !==
+                            audio
+                    );
+
             }
         );
 
@@ -639,7 +450,8 @@ function playSound(
             activeAudios =
                 activeAudios.filter(
                     item =>
-                        item.audio !== audio
+                        item.audio !==
+                        audio
                 );
 
         }
@@ -676,7 +488,7 @@ function stopAllSounds() {
 
 
 /* =====================================================
-   CREATE BUTTON
+   CREATE SOUND BUTTON
 ===================================================== */
 
 function createSoundButton(
@@ -703,20 +515,6 @@ function createSoundButton(
         );
 
 
-    const deleteButton =
-        !sound.builtIn
-            ? `
-                <span
-                    class="delete-button"
-                    role="button"
-                    aria-label="Eliminar"
-                >
-                    ×
-                </span>
-              `
-            : "";
-
-
     button.innerHTML = `
 
         <span>
@@ -724,8 +522,6 @@ function createSoundButton(
                 sound.name
             )}
         </span>
-
-        ${deleteButton}
 
         <span
             class="
@@ -766,27 +562,6 @@ function createSoundButton(
             }
 
 
-            const deleteButton =
-                event.target.closest(
-                    ".delete-button"
-                );
-
-
-            if (
-                deleteButton
-            ) {
-
-                event.stopPropagation();
-
-                removeUserSound(
-                    sound
-                );
-
-                return;
-
-            }
-
-
             playSound(
                 sound,
                 button
@@ -797,59 +572,6 @@ function createSoundButton(
 
 
     return button;
-
-}
-
-
-/* =====================================================
-   DELETE USER SOUND
-===================================================== */
-
-async function removeUserSound(
-    sound
-) {
-
-    const confirmed =
-        confirm(
-            `¿Eliminar "${sound.name}"?`
-        );
-
-
-    if (!confirmed) {
-        return;
-    }
-
-
-    try {
-
-        await deleteUserSound(
-            sound.id
-        );
-
-
-        userSounds =
-            userSounds.filter(
-                item =>
-                    item.id !==
-                    sound.id
-            );
-
-
-        renderSounds();
-
-    } catch (
-        error
-    ) {
-
-        console.error(
-            error
-        );
-
-        alert(
-            "No se pudo eliminar el sonido."
-        );
-
-    }
 
 }
 
@@ -942,147 +664,6 @@ function renderSounds() {
     );
 
 }
-
-
-/* =====================================================
-   ADD SOUNDS
-===================================================== */
-
-addButton.addEventListener(
-    "click",
-    () => {
-
-        fileInput.click();
-
-    }
-);
-
-
-/* =====================================================
-   FILE SELECTED
-===================================================== */
-
-fileInput.addEventListener(
-    "change",
-    async () => {
-
-        const files =
-            Array.from(
-                fileInput.files
-            );
-
-
-        if (
-            files.length === 0
-        ) {
-
-            return;
-
-        }
-
-
-        const allowedTypes = [
-            "audio/mpeg",
-            "audio/ogg",
-            "audio/wav",
-            "audio/x-wav",
-            "audio/wave"
-        ];
-
-
-        for (
-            const file of files
-        ) {
-
-            const extension =
-                file.name
-                    .split(".")
-                    .pop()
-                    .toLowerCase();
-
-
-            const allowedExtensions =
-                [
-                    "mp3",
-                    "ogg",
-                    "wav"
-                ];
-
-
-            if (
-                !allowedExtensions
-                    .includes(
-                        extension
-                    )
-            ) {
-
-                continue;
-
-            }
-
-
-            const sound = {
-
-                name:
-                    file.name
-                        .replace(
-                            /\.[^/.]+$/,
-                            ""
-                        ),
-
-                blob:
-                    file,
-
-                type:
-                    file.type,
-
-                size:
-                    file.size,
-
-                created:
-                    Date.now()
-
-            };
-
-
-            try {
-
-                const saved =
-                    await saveUserSound(
-                        sound
-                    );
-
-
-                userSounds.push(
-                    saved
-                );
-
-            } catch (
-                error
-            ) {
-
-                console.error(
-                    error
-                );
-
-                alert(
-                    "No se pudo guardar " +
-                    file.name
-                );
-
-            }
-
-        }
-
-
-        fileInput.value =
-            "";
-
-
-        renderSounds();
-
-    }
-);
 
 
 /* =====================================================
@@ -1214,10 +795,10 @@ stopButton.addEventListener(
 
 
 /* =====================================================
-   THEME
+   LIGHT / DARK MODE
 ===================================================== */
 
-function loadTheme() {
+function loadDarkMode() {
 
     const saved =
         localStorage.getItem(
@@ -1235,6 +816,15 @@ function loadTheme() {
 
         themeButton.textContent =
             "☀";
+
+    } else {
+
+        document.body.classList.remove(
+            "dark"
+        );
+
+        themeButton.textContent =
+            "☾";
 
     }
 
@@ -1269,6 +859,141 @@ themeButton.addEventListener(
 
 
 /* =====================================================
+   COLOR THEMES
+===================================================== */
+
+const availableThemes = [
+    "default",
+    "ocean",
+    "lime",
+    "purple"
+];
+
+
+function loadColorTheme() {
+
+    const saved =
+        localStorage.getItem(
+            "soundboardColorTheme"
+        ) || "default";
+
+
+    applyColorTheme(
+        saved
+    );
+
+}
+
+
+function applyColorTheme(
+    theme
+) {
+
+    availableThemes.forEach(
+        item => {
+
+            document.body.classList.remove(
+                `theme-${item}`
+            );
+
+        }
+    );
+
+
+    if (
+        theme !== "default"
+    ) {
+
+        document.body.classList.add(
+            `theme-${theme}`
+        );
+
+    }
+
+
+    localStorage.setItem(
+        "soundboardColorTheme",
+        theme
+    );
+
+}
+
+
+function toggleThemeMenu() {
+
+    themeMenu.classList.toggle(
+        "hidden"
+    );
+
+}
+
+
+themeSelectorButton.addEventListener(
+    "click",
+    event => {
+
+        event.stopPropagation();
+
+        toggleThemeMenu();
+
+    }
+);
+
+
+document
+    .querySelectorAll(
+        ".theme-option"
+    )
+    .forEach(
+        option => {
+
+            option.addEventListener(
+                "click",
+                () => {
+
+                    const theme =
+                        option.dataset.theme;
+
+
+                    applyColorTheme(
+                        theme
+                    );
+
+
+                    themeMenu.classList.add(
+                        "hidden"
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+document.addEventListener(
+    "click",
+    event => {
+
+        if (
+            !themeMenu.contains(
+                event.target
+            ) &&
+            event.target !==
+                themeSelectorButton
+        ) {
+
+            themeMenu.classList.add(
+                "hidden"
+            );
+
+        }
+
+    }
+);
+
+
+/* =====================================================
    ESCAPE HTML
 ===================================================== */
 
@@ -1295,30 +1020,11 @@ function escapeHTML(
    START
 ===================================================== */
 
-async function startApp() {
+function startApp() {
 
-    loadTheme();
+    loadDarkMode();
 
-
-    try {
-
-        await openDatabase();
-
-        await loadUserSounds();
-
-    } catch (
-        error
-    ) {
-
-        console.error(
-            "IndexedDB error:",
-            error
-        );
-
-        userSounds = [];
-
-    }
-
+    loadColorTheme();
 
     renderSounds();
 
