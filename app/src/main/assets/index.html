@@ -1,59 +1,104 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SND</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width,
+                 initial-scale=1.0,
+                 maximum-scale=1.0,
+                 user-scalable=no"
+    >
+
+    <title>SND</title>
+
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <div class="app">
+    <main class="app">
 
-    <header>
-      <div class="logo">SND<span>.</span></div>
-      <button id="themeBtn" class="icon-btn">◐</button>
-    </header>
+        <!-- CABECERA -->
 
-    <section class="hero">
-      <div>
-        <p>SOUNDBOARD</p>
-        <h1>Tu sonido.<br><span>Al instante.</span></h1>
-      </div>
+        <header class="header">
 
-      <button id="stopAll" class="stop-btn">
-        ■ Detener todo
-      </button>
-    </section>
+            <div class="brand">
+                SND
+            </div>
 
-    <section class="controls">
+            <button
+                id="themeButton"
+                class="theme-button"
+                aria-label="Cambiar tema"
+            >
+                Dark
+            </button>
 
-      <div class="search">
-        <span>⌕</span>
-        <input
-          id="search"
-          type="search"
-          placeholder="Buscar sonido..."
+        </header>
+
+
+        <!-- BUSCADOR -->
+
+        <div class="search-container">
+
+            <input
+                id="searchInput"
+                class="search"
+                type="text"
+                placeholder="Buscar"
+                autocomplete="off"
+                spellcheck="false"
+            >
+
+        </div>
+
+
+        <!-- FILTROS -->
+
+        <div class="filters">
+
+            <button
+                id="favoritesFilter"
+                class="filter"
+            >
+                favoritos
+            </button>
+
+            <button
+                id="overlayButton"
+                class="filter"
+            >
+                superponer
+            </button>
+
+        </div>
+
+
+        <!-- SONIDOS -->
+
+        <section
+            id="soundsGrid"
+            class="sounds-grid"
         >
-      </div>
+        </section>
 
-      <button id="overlayBtn" class="toggle">
-        <span class="toggle-dot"></span>
-        <span id="overlayLabel">Superponer: OFF</span>
-      </button>
 
-    </section>
+        <!-- CUADRADO DE STOP -->
 
-    <main id="soundGrid"></main>
+        <button
+            id="stopAll"
+            class="stop-button"
+            aria-label="Detener todos los sonidos"
+        >
+            <span></span>
+        </button>
 
-    <p id="empty" class="empty" hidden>
-      No encontramos ese sonido.
-    </p>
+    </main>
 
-  </div>
-
-  <script src="script.js"></script>
+    <script src="sounds.js"></script>
+    <script src="script.js"></script>
 
 </body>
 </html>
