@@ -1,425 +1,405 @@
-const SOUNDS = [
-  "faaah.mp3",
-  "enrique.mp3",
-  "discord-notification.mp3",
-  "gato-riendo.mp3",
-  "vine-boom.mp3",
-  "among-us-role-reveal-sound.mp3",
-  "bombon-asesino.mp3",
-  "king-nasir-saturado.mp3",
-  "tiki-tiki-boosted.mp3",
-  "mercadopago-transferencia.mp3",
-  "cucu-cucurella-cucu.mp3",
-  "tamo-chelo.mp3",
-  "imprevisto.mp3",
-  "metal-pipe-clang.mp3",
-  "iphonenotification.mp3",
-  "spiderman-meme-song.mp3",
-  "van-a-sortear-el-chancho.mp3",
-  "67.mp3",
-  "bruh.mp3",
-  "oh-estas-haciendo-magia.mp3",
-  "spongebob-fail.mp3",
-  "marcha-peronista.mp3",
-  "hello-moto-saturado.mp3",
-  "el-chiqui-tapia.mp3",
-  "romanceeeeeeeeeeeeee.mp3",
-  "winxperror.mp3",
-  "ayyy-ayyy-ayyy-scream.mp3",
-  "tono-celular-chino.mp3",
-  "oye-gela-escuchate-esto-saturado.mp3",
-  "peter-abuela.mp3",
-  "formidable.mp3",
-  "a-oliver-le-cayo-un-meteorito.mp3",
-  "indian-song.mp3",
-  "get-out.mp3",
-  "applepay.mp3",
-  "oh-my-god.mp3",
-  "pianodross.mp3",
-  "anda-a-lavar-los-platos-mayra.mp3",
-  "°_°.mp3",
-  "clash-brasil.mp3",
-  "muertefornite.mp3",
-  "yay.mp3",
-  "musica-elevador.mp3",
-  "mouse-click-sound.mp3",
-  "bong.mp3",
-  "homer-lets-the-barts-out.mp3",
-  "discordjoin.mp3"
-];
+const grid = document.getElementById("soundsGrid");
+const searchInput = document.getElementById("searchInput");
 
-const grid = document.getElementById("soundGrid");
-const search = document.getElementById("search");
-const stopAllButton = document.getElementById("stopAll");
+const favoritesFilter =
+    document.getElementById("favoritesFilter");
 
-const overlayButton = document.getElementById("overlayBtn");
-const overlayLabel = document.getElementById("overlayLabel");
+const overlayButton =
+    document.getElementById("overlayButton");
 
-const themeButton = document.getElementById("themeBtn");
-const empty = document.getElementById("empty");
+const stopAllButton =
+    document.getElementById("stopAll");
 
-let overlay =
-  localStorage.getItem("snd-overlay") === "true";
-
-let favorites =
-  JSON.parse(
-    localStorage.getItem("snd-favorites") || "[]"
-  );
-
-let activeAudios = [];
-
-let theme =
-  localStorage.getItem("snd-theme") || "light";
+const themeButton =
+    document.getElementById("themeButton");
 
 
 /* =========================
-   THEME
-========================= */
+   ESTADO
+   ========================= */
 
-document.documentElement.dataset.theme =
-  theme;
+let favorites =
+    JSON.parse(
+        localStorage.getItem("snd_favorites") || "[]"
+    );
+
+let overlay =
+    localStorage.getItem("snd_overlay") === "true";
+
+let dark =
+    localStorage.getItem("snd_dark") === "true";
+
+let showingFavorites = false;
+
+let currentAudios = [];
+
+
+/* =========================
+   INICIO
+   ========================= */
+
+if (dark) {
+    document.body.classList.add("dark");
+    themeButton.textContent = "White";
+}
+
+updateOverlayButton();
+
+renderSounds();
 
 
 /* =========================
    NOMBRE BONITO
-========================= */
+   ========================= */
 
-function getName(file) {
+function getSoundName(file) {
 
-  return file
-    .replace(".mp3", "")
-    .replaceAll("-", " ");
+    let name = file
+        .replace(/\.[^/.]+$/, "")
+        .replace(/[_-]+/g, " ");
 
+    return name;
 }
 
 
 /* =========================
    RENDER
-========================= */
+   ========================= */
 
 function renderSounds() {
 
-  const query =
-    search.value
-      .trim()
-      .toLowerCase();
+    const query =
+        searchInput.value
+            .trim()
+            .toLowerCase();
 
-  const filtered =
-    SOUNDS.filter(sound =>
-      getName(sound)
-        .toLowerCase()
-        .includes(query)
-    );
+    grid.innerHTML = "";
 
-  grid.innerHTML = "";
+    const filtered =
+        SOUND_FILES.filter(file => {
 
-  empty.hidden =
-    filtered.length !== 0;
+            const name =
+                getSoundName(file)
+                    .toLowerCase();
 
+            const matchesSearch =
+                name.includes(query);
 
-  filtered.forEach((file) => {
+            const matchesFavorites =
+                !showingFavorites ||
+                favorites.includes(file);
 
-    const button =
-      document.createElement("button");
-
-    button.className = "sound";
-
-    const isFavorite =
-      favorites.includes(file);
-
-
-    button.innerHTML = `
-
-      <span class="sound-name">
-        ${getName(file)}
-      </span>
-
-      <span class="sound-number">
-        #${String(
-          SOUNDS.indexOf(file) + 1
-        ).padStart(2, "0")}
-      </span>
-
-      <button
-        class="star ${isFavorite ? "active" : ""}"
-        title="Favorito"
-      >
-        ${isFavorite ? "★" : "☆"}
-      </button>
-
-    `;
+            return (
+                matchesSearch &&
+                matchesFavorites
+            );
+        });
 
 
-    button.addEventListener(
-      "click",
-      event => {
+    if (filtered.length === 0) {
 
-        if (
-          event.target.classList
-            .contains("star")
-        ) {
-          return;
+        const empty =
+            document.createElement("div");
+
+        empty.className = "empty";
+
+        empty.textContent =
+            showingFavorites
+                ? "No hay favoritos"
+                : "No se encontraron sonidos";
+
+        grid.appendChild(empty);
+
+        return;
+    }
+
+
+    filtered.forEach(file => {
+
+        const item =
+            document.createElement("div");
+
+        item.className = "sound-item";
+
+        item.dataset.file = file;
+
+
+        /* NOMBRE */
+
+        const name =
+            document.createElement("div");
+
+        name.className = "sound-name";
+
+        name.textContent =
+            getSoundName(file);
+
+
+        /* ESTRELLA */
+
+        const favorite =
+            document.createElement("button");
+
+        favorite.className = "favorite";
+
+        favorite.type = "button";
+
+        favorite.innerHTML =
+            favorites.includes(file)
+                ? "★"
+                : "☆";
+
+        if (favorites.includes(file)) {
+            favorite.classList.add("starred");
         }
 
-        playSound(file, button);
 
-      }
-    );
+        favorite.addEventListener(
+            "click",
+            event => {
 
+                event.stopPropagation();
 
-    const star =
-      button.querySelector(".star");
-
-
-    star.addEventListener(
-      "click",
-      event => {
-
-        event.stopPropagation();
-
-        toggleFavorite(file);
-
-      }
-    );
-
-
-    grid.appendChild(button);
-
-  });
-
-}
-
-
-/* =========================
-   PLAY SOUND
-========================= */
-
-function playSound(file, button) {
-
-  /*
-   OFF:
-   Solo puede sonar un sonido
-   a la vez.
-
-   ON:
-   Los sonidos se superponen.
-  */
-
-  if (!overlay) {
-
-    stopAllSounds();
-
-  }
-
-
-  const audio =
-    new Audio(
-      "sounds/" +
-      encodeURIComponent(file)
-    );
-
-
-  activeAudios.push(audio);
-
-  button.classList.add("playing");
-
-
-  audio.addEventListener(
-    "ended",
-    () => {
-
-      button.classList.remove(
-        "playing"
-      );
-
-      activeAudios =
-        activeAudios.filter(
-          a => a !== audio
+                toggleFavorite(
+                    file,
+                    favorite
+                );
+            }
         );
 
+
+        /* REPRODUCIR */
+
+        item.addEventListener(
+            "click",
+            () => playSound(file, item)
+        );
+
+
+        item.appendChild(name);
+        item.appendChild(favorite);
+
+        grid.appendChild(item);
+
+    });
+}
+
+
+/* =========================
+   FAVORITOS
+   ========================= */
+
+function toggleFavorite(file, element) {
+
+    if (favorites.includes(file)) {
+
+        favorites =
+            favorites.filter(
+                item => item !== file
+            );
+
+        element.textContent = "☆";
+        element.classList.remove("starred");
+
+    } else {
+
+        favorites.push(file);
+
+        element.textContent = "★";
+        element.classList.add("starred");
     }
-  );
 
 
-  audio.addEventListener(
-    "error",
+    localStorage.setItem(
+        "snd_favorites",
+        JSON.stringify(favorites)
+    );
+
+
+    if (showingFavorites) {
+        renderSounds();
+    }
+}
+
+
+/* =========================
+   REPRODUCIR
+   ========================= */
+
+function playSound(file, item) {
+
+    /*
+     * Si superponer está apagado,
+     * detenemos lo que estaba sonando.
+     */
+
+    if (!overlay) {
+        stopAll();
+    }
+
+
+    const audio =
+        new Audio(
+            "sounds/" +
+            encodeURIComponent(file)
+        );
+
+
+    audio.volume = 1;
+
+    currentAudios.push(audio);
+
+    item.classList.add("playing");
+
+
+    audio.play()
+        .catch(error => {
+            console.error(
+                "No se pudo reproducir:",
+                error
+            );
+
+            item.classList.remove("playing");
+        });
+
+
+    audio.addEventListener(
+        "ended",
+        () => {
+
+            item.classList.remove("playing");
+
+            currentAudios =
+                currentAudios.filter(
+                    a => a !== audio
+                );
+        }
+    );
+}
+
+
+/* =========================
+   STOP TODO
+   ========================= */
+
+function stopAll() {
+
+    currentAudios.forEach(
+        audio => {
+
+            audio.pause();
+
+            audio.currentTime = 0;
+        }
+    );
+
+    currentAudios = [];
+
+
+    document
+        .querySelectorAll(".sound-item.playing")
+        .forEach(item => {
+
+            item.classList.remove("playing");
+        });
+}
+
+
+stopAllButton.addEventListener(
+    "click",
+    stopAll
+);
+
+
+/* =========================
+   BUSCAR
+   ========================= */
+
+searchInput.addEventListener(
+    "input",
+    renderSounds
+);
+
+
+/* =========================
+   FAVORITOS FILTRO
+   ========================= */
+
+favoritesFilter.addEventListener(
+    "click",
     () => {
 
-      button.classList.remove(
-        "playing"
-      );
+        showingFavorites =
+            !showingFavorites;
 
+        favoritesFilter.classList.toggle(
+            "active",
+            showingFavorites
+        );
+
+        renderSounds();
     }
-  );
-
-
-  audio.play()
-    .catch(() => {
-
-      button.classList.remove(
-        "playing"
-      );
-
-    });
-
-}
-
-
-/* =========================
-   STOP ALL
-========================= */
-
-function stopAllSounds() {
-
-  activeAudios.forEach(audio => {
-
-    audio.pause();
-
-    audio.currentTime = 0;
-
-  });
-
-
-  activeAudios = [];
-
-
-  document
-    .querySelectorAll(".sound.playing")
-    .forEach(button => {
-
-      button.classList.remove(
-        "playing"
-      );
-
-    });
-
-}
-
-
-/* =========================
-   FAVORITES
-========================= */
-
-function toggleFavorite(file) {
-
-  if (
-    favorites.includes(file)
-  ) {
-
-    favorites =
-      favorites.filter(
-        sound => sound !== file
-      );
-
-  } else {
-
-    favorites.push(file);
-
-  }
-
-
-  localStorage.setItem(
-    "snd-favorites",
-    JSON.stringify(favorites)
-  );
-
-
-  renderSounds();
-
-}
+);
 
 
 /* =========================
    SUPERPONER
-========================= */
+   ========================= */
 
-function updateOverlay() {
+overlayButton.addEventListener(
+    "click",
+    () => {
 
-  overlayButton.classList.toggle(
-    "on",
-    overlay
-  );
+        overlay = !overlay;
+
+        localStorage.setItem(
+            "snd_overlay",
+            overlay
+        );
+
+        updateOverlayButton();
+    }
+);
 
 
-  overlayLabel.textContent =
-    `Superponer: ${
-      overlay ? "ON" : "OFF"
-    }`;
+function updateOverlayButton() {
 
+    overlayButton.classList.toggle(
+        "active",
+        overlay
+    );
+
+    overlayButton.textContent =
+        overlay
+            ? "superponer ✓"
+            : "superponer";
 }
 
 
-overlayButton.addEventListener(
-  "click",
-  () => {
-
-    overlay = !overlay;
-
-    localStorage.setItem(
-      "snd-overlay",
-      overlay
-    );
-
-    updateOverlay();
-
-  }
-);
-
-
 /* =========================
-   STOP BUTTON
-========================= */
-
-stopAllButton.addEventListener(
-  "click",
-  stopAllSounds
-);
-
-
-/* =========================
-   SEARCH
-========================= */
-
-search.addEventListener(
-  "input",
-  renderSounds
-);
-
-
-/* =========================
-   THEME
-========================= */
+   TEMA
+   ========================= */
 
 themeButton.addEventListener(
-  "click",
-  () => {
+    "click",
+    () => {
 
-    theme =
-      document.documentElement
-        .dataset
-        .theme === "dark"
-        ? "light"
-        : "dark";
+        dark =
+            !dark;
 
+        document.body.classList.toggle(
+            "dark",
+            dark
+        );
 
-    document.documentElement
-      .dataset
-      .theme = theme;
+        localStorage.setItem(
+            "snd_dark",
+            dark
+        );
 
-
-    localStorage.setItem(
-      "snd-theme",
-      theme
-    );
-
-  }
+        themeButton.textContent =
+            dark
+                ? "White"
+                : "Dark";
+    }
 );
-
-
-/* =========================
-   START
-========================= */
-
-updateOverlay();
-
-renderSounds();
