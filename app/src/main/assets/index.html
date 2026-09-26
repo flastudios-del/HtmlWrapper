@@ -2,15 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width,
-                 initial-scale=1.0,
-                 maximum-scale=1.0,
-                 user-scalable=no"
-    >
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SND</title>
 
     <link rel="stylesheet" href="style.css">
@@ -20,84 +12,47 @@
 
     <main class="app">
 
-        <!-- CABECERA -->
+        <header class="topbar">
+            <div class="brand">SND</div>
 
-        <header class="header">
-
-            <div class="brand">
-                SND
-            </div>
-
-            <button
-                id="themeButton"
-                class="theme-button"
-                aria-label="Cambiar tema"
-            >
-                Dark
+            <button id="themeToggle" class="glass icon-button" aria-label="Cambiar tema">
+                ◐
             </button>
-
         </header>
 
+        <section class="controls">
 
-        <!-- BUSCADOR -->
+            <div class="search-wrap glass">
+                <span>⌕</span>
+                <input
+                    id="search"
+                    type="text"
+                    placeholder="Buscar"
+                    autocomplete="off"
+                    spellcheck="false"
+                >
+            </div>
 
-        <div class="search-container">
+            <div class="control-row">
+                <button id="favoritesToggle" class="glass control-button">
+                    ☆ <span>favoritos</span>
+                </button>
 
-            <input
-                id="searchInput"
-                class="search"
-                type="text"
-                placeholder="Buscar"
-                autocomplete="off"
-                spellcheck="false"
-            >
+                <button id="overlayToggle" class="glass control-button active">
+                    ◉ <span>superponer</span>
+                </button>
+            </div>
 
-        </div>
-
-
-        <!-- FILTROS -->
-
-        <div class="filters">
-
-            <button
-                id="favoritesFilter"
-                class="filter"
-            >
-                favoritos
-            </button>
-
-            <button
-                id="overlayButton"
-                class="filter"
-            >
-                superponer
-            </button>
-
-        </div>
-
-
-        <!-- SONIDOS -->
-
-        <section
-            id="soundsGrid"
-            class="sounds-grid"
-        >
         </section>
 
-
-        <!-- CUADRADO DE STOP -->
-
-        <button
-            id="stopAll"
-            class="stop-button"
-            aria-label="Detener todos los sonidos"
-        >
-            <span></span>
-        </button>
+        <section id="soundGrid" class="sound-grid"></section>
 
     </main>
 
-    <script src="sounds.js"></script>
+    <button id="stopButton" class="stop-button" aria-label="Detener todos los sonidos">
+        <span></span>
+    </button>
+
     <script src="script.js"></script>
 
 </body>
