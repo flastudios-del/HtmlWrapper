@@ -1,468 +1,396 @@
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
 }
 
 :root {
-  --bg: #edf8ff;
-  --surface: rgba(255,255,255,0.82);
-  --text: #123047;
-  --muted: #668296;
-  --primary: #16a9ff;
-  --border: rgba(30,120,160,0.15);
-  --shadow: 0 12px 30px rgba(30,120,160,0.14);
-}
-
-[data-theme="dark"] {
-  --bg: #0b1420;
-  --surface: rgba(22,35,50,0.9);
-  --text: #eaf7ff;
-  --muted: #8da6b8;
-  --primary: #45c5ff;
-  --border: rgba(180,225,245,0.13);
-  --shadow: 0 15px 35px rgba(0,0,0,0.3);
-}
-
-html,
-body {
-  margin: 0;
-  min-height: 100%;
-}
-
-body {
-  padding: 20px;
-  font-family: Arial, Helvetica, sans-serif;
-  color: var(--text);
-
-  background:
-    radial-gradient(
-      circle at 15% 0%,
-      rgba(80,215,255,0.25),
-      transparent 450px
-    ),
-    var(--bg);
-}
-
-button,
-input {
-  font: inherit;
-}
-
-button {
-  cursor: pointer;
-}
-
-.app {
-  max-width: 1050px;
-  margin: auto;
-}
-* {
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
+    --text: #ffffff;
+    --glass: rgba(255, 255, 255, 0.18);
+    --glass-strong: rgba(255, 255, 255, 0.27);
+    --border: rgba(255, 255, 255, 0.42);
+    --shadow: rgba(0, 0, 0, 0.16);
 }
 
 html,
 body {
     margin: 0;
-    padding: 0;
-
     width: 100%;
     min-height: 100%;
-
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
-    background: #ffffff;
-    color: #000000;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display",
+        "Segoe UI", sans-serif;
 }
 
 body {
+    min-height: 100vh;
+    color: var(--text);
+
+    /*
+        Fondo principal de SND.
+        Turquesa -> verde, como en tus referencias.
+    */
+    background:
+        radial-gradient(
+            circle at 15% 10%,
+            rgba(255, 255, 255, 0.20),
+            transparent 30%
+        ),
+        linear-gradient(
+            145deg,
+            #39d9d0 0%,
+            #35d8bd 45%,
+            #42d991 100%
+        );
+
+    background-attachment: fixed;
     overflow-x: hidden;
+}
+
+body.dark {
+    --text: #ffffff;
+    --glass: rgba(0, 0, 0, 0.20);
+    --glass-strong: rgba(0, 0, 0, 0.30);
+    --border: rgba(255, 255, 255, 0.28);
+    --shadow: rgba(0, 0, 0, 0.30);
+
+    background:
+        radial-gradient(
+            circle at 15% 10%,
+            rgba(255, 255, 255, 0.10),
+            transparent 30%
+        ),
+        linear-gradient(
+            145deg,
+            #159b99 0%,
+            #168e79 48%,
+            #198a55 100%
+        );
 }
 
 button,
 input {
-    font-family: inherit;
+    font: inherit;
 }
 
-
-/* =========================
-   APP
-   ========================= */
+button {
+    border: 0;
+}
 
 .app {
-    width: 100%;
-    min-height: 100vh;
-
-    padding:
-        18px
-        16px
-        90px
-        16px;
-
-    background: #ffffff;
+    width: min(100%, 760px);
+    margin: auto;
+    padding: 18px 16px 110px;
 }
 
+/* =========================
+   LIQUID GLASS
+========================= */
+
+.glass {
+    background: var(--glass);
+
+    border: 1px solid var(--border);
+
+    backdrop-filter: blur(28px) saturate(150%);
+    -webkit-backdrop-filter: blur(28px) saturate(150%);
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.30),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.08),
+        0 12px 30px var(--shadow);
+
+    position: relative;
+    overflow: hidden;
+}
+
+.glass::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            120deg,
+            rgba(255, 255, 255, 0.18),
+            transparent 28%,
+            transparent 70%,
+            rgba(255, 255, 255, 0.07)
+        );
+
+    pointer-events: none;
+}
 
 /* =========================
-   HEADER
-   ========================= */
+   TOP
+========================= */
 
-.header {
-    width: 100%;
-
+.topbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-
-    margin-bottom: 14px;
+    margin-bottom: 18px;
 }
 
 .brand {
-    font-size: 24px;
-    font-weight: 700;
-    letter-spacing: -1px;
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.14);
 }
 
-.theme-button {
-    border: 1px solid #000000;
-    background: #000000;
-    color: #ffffff;
-
-    border-radius: 999px;
-
-    padding:
-        7px
-        13px;
-
-    font-size: 12px;
-
+.icon-button {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    color: var(--text);
     cursor: pointer;
+    font-size: 21px;
+    transition: transform .18s ease, background .18s ease;
 }
 
+.icon-button:active {
+    transform: scale(.92);
+}
 
 /* =========================
-   BUSCADOR
-   ========================= */
+   SEARCH
+========================= */
 
-.search-container {
-    width: 100%;
-}
-
-.search {
-    width: 100%;
-    height: 48px;
-
-    border:
-        1px solid
-        #000000;
-
-    border-radius: 25px;
-
-    background: #ffffff;
-    color: #000000;
-
-    padding:
-        0
-        20px;
-
-    outline: none;
-
-    font-size: 17px;
-
-    text-align: center;
-
-    transition:
-        background 0.15s,
-        color 0.15s;
-}
-
-.search::placeholder {
-    color: #000000;
-    opacity: 1;
-}
-
-.search:focus {
-    border-width: 2px;
-}
-
-
-/* =========================
-   FILTROS
-   ========================= */
-
-.filters {
-    display: flex;
-
-    gap: 10px;
-
-    margin:
-        12px
-        0
-        14px;
-}
-
-.filter {
-    height: 34px;
-
-    padding:
-        0
-        18px;
-
-    border:
-        1px solid
-        #000000;
-
-    border-radius: 20px;
-
-    background: #ffffff;
-    color: #000000;
-
-    font-size: 12px;
-
-    cursor: pointer;
-}
-
-.filter.active {
-    background: #000000;
-    color: #ffffff;
-}
-
-
-/* =========================
-   GRID
-   ========================= */
-
-.sounds-grid {
-    display: grid;
-
-    grid-template-columns:
-        repeat(2, minmax(0, 1fr));
-
-    gap: 10px;
-
-    width: 100%;
-}
-
-
-/* =========================
-   SONIDO
-   ========================= */
-
-.sound-item {
-    min-width: 0;
-
+.search-wrap {
     height: 58px;
+    border-radius: 20px;
 
     display: flex;
     align-items: center;
+    gap: 10px;
 
-    border:
-        1px solid
-        #000000;
+    padding: 0 18px;
+    margin-bottom: 12px;
+}
 
-    border-radius: 17px;
+.search-wrap span {
+    font-size: 28px;
+    line-height: 1;
+    opacity: .85;
+}
 
-    background: #ffffff;
+.search-wrap input {
+    width: 100%;
+    border: 0;
+    outline: 0;
+    background: transparent;
 
-    color: #000000;
+    color: var(--text);
+    font-size: 18px;
+}
 
-    overflow: hidden;
+.search-wrap input::placeholder {
+    color: var(--text);
+    opacity: .75;
+}
+
+/* =========================
+   CONTROLS
+========================= */
+
+.control-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.control-button {
+    min-height: 50px;
+    border-radius: 18px;
+
+    color: var(--text);
+    cursor: pointer;
+
+    font-size: 15px;
+    font-weight: 600;
 
     transition:
-        background 0.12s,
-        color 0.12s,
-        transform 0.08s;
+        transform .18s ease,
+        background .18s ease;
 }
 
-.sound-item:active {
-    transform: scale(0.97);
+.control-button:active {
+    transform: scale(.97);
 }
 
-.sound-item.playing {
-    background: #000000;
-    color: #ffffff;
+.control-button.active {
+    background: var(--glass-strong);
 }
 
+.control-button span {
+    margin-left: 4px;
+}
 
-/* NOMBRE DEL SONIDO */
+/* =========================
+   SOUND BUTTONS
+========================= */
 
-.sound-name {
-    flex: 1;
+.sound-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
 
-    min-width: 0;
+.sound-button {
+    min-height: 64px;
+    padding: 13px 15px;
 
-    padding-left: 14px;
-    padding-right: 6px;
+    border-radius: 21px;
 
-    overflow: hidden;
+    color: var(--text);
+    cursor: pointer;
 
-    white-space: nowrap;
-    text-overflow: ellipsis;
+    text-align: left;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    font-size: 15px;
+    font-weight: 650;
+
+    transition:
+        transform .15s ease,
+        background .15s ease,
+        box-shadow .15s ease;
+}
+
+.sound-button:hover {
+    background: var(--glass-strong);
+}
+
+.sound-button:active {
+    transform: scale(.96);
+}
+
+.sound-icon {
+    width: 34px;
+    height: 34px;
+    flex: 0 0 34px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 12px;
+
+    background: rgba(255, 255, 255, .18);
+    border: 1px solid rgba(255, 255, 255, .25);
 
     font-size: 15px;
 }
 
-
-/* =========================
-   ESTRELLA
-   ========================= */
+.sound-name {
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
 
 .favorite {
-    width: 44px;
-    height: 100%;
-
-    flex-shrink: 0;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border: 0;
-
-    background: transparent;
-
-    color: inherit;
-
-    font-size: 21px;
-
-    cursor: pointer;
-
-    padding: 0;
+    margin-left: auto;
+    font-size: 19px;
+    opacity: .9;
 }
 
-.favorite.starred {
-    font-size: 20px;
+.sound-button.playing {
+    background: rgba(255, 255, 255, .32);
+
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.45),
+        0 10px 25px rgba(0,0,0,.14);
 }
 
+.empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 45px 15px;
+    opacity: .75;
+}
 
 /* =========================
-   STOP FLOTANTE
-   ========================= */
+   STOP
+========================= */
 
 .stop-button {
     position: fixed;
 
-    right: 18px;
-    bottom: 18px;
+    right: 20px;
+    bottom: 20px;
 
-    z-index: 9999;
+    width: 62px;
+    height: 62px;
 
-    width: 58px;
-    height: 58px;
+    border-radius: 20px;
 
-    padding: 0;
+    background: rgba(255, 255, 255, .75);
 
-    border:
-        1px solid
-        #ffffff;
+    border: 1px solid rgba(255,255,255,.85);
 
-    border-radius: 18px;
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
 
-    background: #000000;
+    box-shadow:
+        0 12px 30px rgba(0,0,0,.20),
+        inset 0 1px 0 rgba(255,255,255,.8);
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: grid;
+    place-items: center;
 
     cursor: pointer;
 
-    box-shadow:
-        0 3px 10px
-        rgba(0, 0, 0, 0.18);
+    z-index: 100;
 }
 
 .stop-button span {
-    width: 15px;
-    height: 15px;
-
-    background: #ffffff;
-
-    display: block;
+    width: 22px;
+    height: 22px;
+    background: #000;
+    border-radius: 4px;
 }
 
 .stop-button:active {
-    transform: scale(0.92);
+    transform: scale(.91);
 }
-
 
 /* =========================
-   SIN RESULTADOS
-   ========================= */
+   DESKTOP
+========================= */
 
-.empty {
-    grid-column: 1 / -1;
+@media (min-width: 700px) {
+    .sound-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
 
-    padding: 35px 10px;
-
-    text-align: center;
-
-    font-size: 14px;
+    .app {
+        padding-top: 30px;
+    }
 }
-
 
 /* =========================
-   DARK
-   ========================= */
+   MOBILE
+========================= */
 
-body.dark {
-    background: #000000;
-    color: #ffffff;
-}
+@media (max-width: 430px) {
+    .app {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
 
-body.dark .app {
-    background: #000000;
-}
+    .sound-grid {
+        grid-template-columns: 1fr;
+    }
 
-body.dark .search {
-    background: #000000;
-    color: #ffffff;
-    border-color: #ffffff;
-}
+    .sound-button {
+        min-height: 60px;
+    }
 
-body.dark .search::placeholder {
-    color: #ffffff;
-}
-
-body.dark .filter {
-    background: #000000;
-    color: #ffffff;
-    border-color: #ffffff;
-}
-
-body.dark .filter.active {
-    background: #ffffff;
-    color: #000000;
-}
-
-body.dark .sound-item {
-    background: #000000;
-    color: #ffffff;
-    border-color: #ffffff;
-}
-
-body.dark .sound-item.playing {
-    background: #ffffff;
-    color: #000000;
-}
-
-body.dark .theme-button {
-    background: #ffffff;
-    color: #000000;
-    border-color: #ffffff;
-}
-
-body.dark .stop-button {
-    background: #ffffff;
-    border-color: #000000;
-}
-
-body.dark .stop-button span {
-    background: #000000;
-}
-    flex: 1;
-    justify-content: center;
-  }
-
+    .stop-button {
+        right: 15px;
+        bottom: 15px;
+    }
 }
