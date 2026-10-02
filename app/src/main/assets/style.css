@@ -1,396 +1,609 @@
-* {
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
+:root {
+
+--background: #f4f4f4;
+--surface: #ffffff;
+
+--text: #111111;
+--muted: #777777;
+
+--button: #111111;
+--button-text: #ffffff;
+
+--border: #dddddd;
+
+--button-scale: 1;
+--button-radius: 10px;
+
 }
 
-:root {
-    --text: #ffffff;
-    --glass: rgba(255, 255, 255, 0.18);
-    --glass-strong: rgba(255, 255, 255, 0.27);
-    --border: rgba(255, 255, 255, 0.42);
-    --shadow: rgba(0, 0, 0, 0.16);
-}
+/* RESET */
+
+* {
+  box-sizing: border-box;
+  }
 
 html,
 body {
-    margin: 0;
-    width: 100%;
-    min-height: 100%;
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display",
-        "Segoe UI", sans-serif;
+margin: 0;
+width: 100%;
+min-height: 100%;
 }
 
 body {
-    min-height: 100vh;
-    color: var(--text);
 
-    /*
-        Fondo principal de SND.
-        Turquesa -> verde, como en tus referencias.
-    */
-    background:
-        radial-gradient(
-            circle at 15% 10%,
-            rgba(255, 255, 255, 0.20),
-            transparent 30%
-        ),
-        linear-gradient(
-            145deg,
-            #39d9d0 0%,
-            #35d8bd 45%,
-            #42d991 100%
-        );
+font-family:
+Arial,
+Helvetica,
+sans-serif;
 
-    background-attachment: fixed;
-    overflow-x: hidden;
+background: var(--background);
+color: var(--text);
+
+transition:
+background 0.2s ease,
+color 0.2s ease;
+
 }
 
-body.dark {
-    --text: #ffffff;
-    --glass: rgba(0, 0, 0, 0.20);
-    --glass-strong: rgba(0, 0, 0, 0.30);
-    --border: rgba(255, 255, 255, 0.28);
-    --shadow: rgba(0, 0, 0, 0.30);
+/* APP */
 
-    background:
-        radial-gradient(
-            circle at 15% 10%,
-            rgba(255, 255, 255, 0.10),
-            transparent 30%
-        ),
-        linear-gradient(
-            145deg,
-            #159b99 0%,
-            #168e79 48%,
-            #198a55 100%
-        );
+#app {
+min-height: 100vh;
 }
 
-button,
-input {
-    font: inherit;
-}
-
-button {
-    border: 0;
-}
-
-.app {
-    width: min(100%, 760px);
-    margin: auto;
-    padding: 18px 16px 110px;
-}
-
-/* =========================
-   LIQUID GLASS
-========================= */
-
-.glass {
-    background: var(--glass);
-
-    border: 1px solid var(--border);
-
-    backdrop-filter: blur(28px) saturate(150%);
-    -webkit-backdrop-filter: blur(28px) saturate(150%);
-
-    box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.30),
-        inset 0 -1px 0 rgba(255, 255, 255, 0.08),
-        0 12px 30px var(--shadow);
-
-    position: relative;
-    overflow: hidden;
-}
-
-.glass::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-
-    background:
-        linear-gradient(
-            120deg,
-            rgba(255, 255, 255, 0.18),
-            transparent 28%,
-            transparent 70%,
-            rgba(255, 255, 255, 0.07)
-        );
-
-    pointer-events: none;
-}
-
-/* =========================
-   TOP
-========================= */
+/* TOP BAR */
 
 .topbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 18px;
+
+height: 70px;
+
+display: flex;
+align-items: center;
+justify-content: space-between;
+
+padding: 0 25px;
+
+border-bottom:
+1px solid var(--border);
+
+background: var(--surface);
+
 }
 
-.brand {
-    font-size: 30px;
-    font-weight: 800;
-    letter-spacing: -1.5px;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.14);
+.topbar h1 {
+
+margin: 0;
+
+font-size: 24px;
+
+}
+
+.subtitle {
+
+color: var(--muted);
+
+font-size: 12px;
+
+}
+
+/* BUTTONS */
+
+button {
+
+font-family: inherit;
+
 }
 
 .icon-button {
-    width: 46px;
-    height: 46px;
-    border-radius: 50%;
-    color: var(--text);
-    cursor: pointer;
-    font-size: 21px;
-    transition: transform .18s ease, background .18s ease;
+
+width: 44px;
+height: 44px;
+
+border: 1px solid var(--border);
+
+background: var(--surface);
+
+color: var(--text);
+
+border-radius: 9px;
+
+cursor: pointer;
+
+font-size: 19px;
+
 }
 
-.icon-button:active {
-    transform: scale(.92);
+.icon-button:hover {
+
+border-color: var(--text);
+
 }
 
-/* =========================
-   SEARCH
-========================= */
+/* MAIN */
 
-.search-wrap {
-    height: 58px;
-    border-radius: 20px;
+main {
 
-    display: flex;
-    align-items: center;
-    gap: 10px;
+padding: 25px;
 
-    padding: 0 18px;
-    margin-bottom: 12px;
 }
 
-.search-wrap span {
-    font-size: 28px;
-    line-height: 1;
-    opacity: .85;
+.section-header {
+
+display: flex;
+
+align-items: center;
+
+justify-content: space-between;
+
+margin-bottom: 15px;
+
 }
 
-.search-wrap input {
-    width: 100%;
-    border: 0;
-    outline: 0;
-    background: transparent;
+.section-header h2 {
 
-    color: var(--text);
-    font-size: 18px;
+margin: 0;
+
 }
 
-.search-wrap input::placeholder {
-    color: var(--text);
-    opacity: .75;
+#soundCount {
+
+color: var(--muted);
+
+font-size: 13px;
+
 }
 
-/* =========================
-   CONTROLS
-========================= */
-
-.control-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin-bottom: 18px;
-}
-
-.control-button {
-    min-height: 50px;
-    border-radius: 18px;
-
-    color: var(--text);
-    cursor: pointer;
-
-    font-size: 15px;
-    font-weight: 600;
-
-    transition:
-        transform .18s ease,
-        background .18s ease;
-}
-
-.control-button:active {
-    transform: scale(.97);
-}
-
-.control-button.active {
-    background: var(--glass-strong);
-}
-
-.control-button span {
-    margin-left: 4px;
-}
-
-/* =========================
-   SOUND BUTTONS
-========================= */
+/* SOUND GRID */
 
 .sound-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
+
+display: grid;
+
+grid-template-columns:
+repeat(
+auto-fill,
+minmax(
+calc(120px * var(--button-scale)),
+1fr
+)
+);
+
+gap: 12px;
+
 }
 
+/* SOUND BUTTON */
+
 .sound-button {
-    min-height: 64px;
-    padding: 13px 15px;
 
-    border-radius: 21px;
+min-height:
+calc(75px * var(--button-scale));
 
-    color: var(--text);
-    cursor: pointer;
+padding: 12px;
 
-    text-align: left;
+border:
 
-    display: flex;
-    align-items: center;
-    gap: 10px;
+```
+1px solid
+var(--border);
+```
 
-    font-size: 15px;
-    font-weight: 650;
+border-radius:
+var(--button-radius);
 
-    transition:
-        transform .15s ease,
-        background .15s ease,
-        box-shadow .15s ease;
+background:
+var(--surface);
+
+color:
+var(--text);
+
+cursor: pointer;
+
+font-weight: 700;
+
+text-align: left;
+
+transition:
+
+```
+transform 0.1s ease,
+border 0.1s ease;
+```
+
 }
 
 .sound-button:hover {
-    background: var(--glass-strong);
+
+border-color:
+var(--button);
+
 }
 
 .sound-button:active {
-    transform: scale(.96);
+
+transform:
+scale(0.97);
+
 }
 
-.sound-icon {
-    width: 34px;
-    height: 34px;
-    flex: 0 0 34px;
+.sound-button .file-name {
 
-    display: grid;
-    place-items: center;
+display: block;
 
-    border-radius: 12px;
+color:
+var(--muted);
 
-    background: rgba(255, 255, 255, .18);
-    border: 1px solid rgba(255, 255, 255, .25);
+font-size: 11px;
 
-    font-size: 15px;
+margin-top: 6px;
+
+font-weight: 400;
+
 }
 
-.sound-name {
-    min-width: 0;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+/* CUSTOMIZER */
+
+.customizer {
+
+position: fixed;
+
+top: 0;
+right: 0;
+
+width: 360px;
+max-width: 100%;
+
+height: 100vh;
+
+background:
+var(--surface);
+
+border-left:
+1px solid
+var(--border);
+
+transform:
+translateX(100%);
+
+transition:
+transform 0.25s ease;
+
+z-index: 100;
+
+overflow-y: auto;
+
 }
 
-.favorite {
-    margin-left: auto;
-    font-size: 19px;
-    opacity: .9;
+.customizer.open {
+
+transform:
+translateX(0);
+
 }
 
-.sound-button.playing {
-    background: rgba(255, 255, 255, .32);
+/* CUSTOMIZER HEADER */
 
-    box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.45),
-        0 10px 25px rgba(0,0,0,.14);
+.customizer-header {
+
+display: flex;
+
+align-items: center;
+
+justify-content: space-between;
+
+padding: 20px;
+
+border-bottom:
+1px solid
+var(--border);
+
 }
 
-.empty {
-    grid-column: 1 / -1;
-    text-align: center;
-    padding: 45px 15px;
-    opacity: .75;
+.customizer-header h2 {
+
+margin: 0;
+
 }
 
-/* =========================
-   STOP
-========================= */
+.customizer-header span {
 
-.stop-button {
-    position: fixed;
+color: var(--muted);
 
-    right: 20px;
-    bottom: 20px;
+font-size: 12px;
 
-    width: 62px;
-    height: 62px;
-
-    border-radius: 20px;
-
-    background: rgba(255, 255, 255, .75);
-
-    border: 1px solid rgba(255,255,255,.85);
-
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
-
-    box-shadow:
-        0 12px 30px rgba(0,0,0,.20),
-        inset 0 1px 0 rgba(255,255,255,.8);
-
-    display: grid;
-    place-items: center;
-
-    cursor: pointer;
-
-    z-index: 100;
 }
 
-.stop-button span {
-    width: 22px;
-    height: 22px;
-    background: #000;
-    border-radius: 4px;
+.close-button {
+
+width: 40px;
+height: 40px;
+
+border: 0;
+
+background: transparent;
+
+color: var(--text);
+
+font-size: 28px;
+
+cursor: pointer;
+
 }
 
-.stop-button:active {
-    transform: scale(.91);
+/* CONTENT */
+
+.customizer-content {
+
+padding: 20px;
+
 }
 
-/* =========================
-   DESKTOP
-========================= */
+.settings-section {
 
-@media (min-width: 700px) {
-    .sound-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
+padding-bottom: 25px;
 
-    .app {
-        padding-top: 30px;
-    }
+margin-bottom: 25px;
+
+border-bottom:
+1px solid
+var(--border);
+
 }
 
-/* =========================
-   MOBILE
-========================= */
+.settings-section h3 {
 
-@media (max-width: 430px) {
-    .app {
-        padding-left: 12px;
-        padding-right: 12px;
-    }
+margin-top: 0;
 
-    .sound-grid {
-        grid-template-columns: 1fr;
-    }
+}
 
-    .sound-button {
-        min-height: 60px;
-    }
+/* THEMES */
 
-    .stop-button {
-        right: 15px;
-        bottom: 15px;
-    }
+.theme-grid {
+
+display: grid;
+
+grid-template-columns:
+repeat(3, 1fr);
+
+gap: 8px;
+
+}
+
+.theme-card {
+
+border:
+1px solid
+var(--border);
+
+background:
+var(--background);
+
+color:
+var(--text);
+
+border-radius: 10px;
+
+padding: 8px;
+
+cursor: pointer;
+
+}
+
+.theme-card:hover {
+
+border-color:
+var(--text);
+
+}
+
+.theme-preview {
+
+height: 55px;
+
+border-radius: 7px;
+
+margin-bottom: 7px;
+
+}
+
+.white-preview {
+
+background:
+#f4f4f4;
+
+border:
+1px solid #ddd;
+
+}
+
+.black-preview {
+
+background:
+#111;
+
+}
+
+.color-preview {
+
+background:
+linear-gradient(
+135deg,
+#55b8ff,
+#9b7cff,
+#ff6e9c
+);
+
+}
+
+/* COLORS */
+
+.color-setting {
+
+display: flex;
+
+align-items: center;
+
+justify-content: space-between;
+
+margin-bottom: 12px;
+
+}
+
+.color-setting input {
+
+width: 50px;
+height: 35px;
+
+padding: 2px;
+
+border:
+1px solid
+var(--border);
+
+background: transparent;
+
+}
+
+/* RANGE */
+
+input[type="range"] {
+
+width: 100%;
+
+accent-color:
+var(--button);
+
+}
+
+.range-value {
+
+color:
+var(--muted);
+
+font-size: 12px;
+
+margin-top: 5px;
+
+}
+
+/* UPLOAD */
+
+.upload-button {
+
+display: block;
+
+padding: 12px;
+
+background:
+var(--button);
+
+color:
+var(--button-text);
+
+border-radius: 9px;
+
+text-align: center;
+
+cursor: pointer;
+
+margin-bottom: 8px;
+
+}
+
+.secondary-button {
+
+width: 100%;
+
+padding: 11px;
+
+border:
+1px solid
+var(--border);
+
+background:
+var(--background);
+
+color:
+var(--text);
+
+border-radius: 9px;
+
+cursor: pointer;
+
+}
+
+/* DESCRIPTION */
+
+.setting-description {
+
+color:
+var(--muted);
+
+font-size: 13px;
+
+}
+
+/* NAME EXAMPLE */
+
+.name-example {
+
+display: grid;
+
+grid-template-columns:
+1fr auto 1fr;
+
+align-items: center;
+
+gap: 8px;
+
+padding: 10px;
+
+margin-top: 8px;
+
+background:
+var(--background);
+
+border-radius: 8px;
+
+font-size: 12px;
+
+}
+
+.name-example span:last-child {
+
+font-weight: 700;
+
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+.topbar {
+
+```
+padding:
+  0 15px;
+```
+
+}
+
+main {
+
+```
+padding:
+  15px;
+```
+
+}
+
+.customizer {
+
+```
+width:
+  100%;
+```
+
+}
+
 }
