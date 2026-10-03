@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -12,222 +11,205 @@
 
   <div id="app">
 
-```
-<header class="topbar">
-  <div>
-    <h1>SND</h1>
-    <span class="subtitle">Sound Library</span>
-  </div>
-
-  <button id="customizeBtn" class="icon-button" title="Personalizar">
-    ⚙
-  </button>
-</header>
-
-<main>
-
-  <section class="sounds-section">
-    <div class="section-header">
-      <h2>Sounds</h2>
-      <span id="soundCount">0 sounds</span>
-    </div>
-
-    <div id="soundGrid" class="sound-grid"></div>
-  </section>
-
-</main>
-
-<!-- PANEL DE PERSONALIZACIÓN -->
-
-<aside id="customizer" class="customizer">
-
-  <div class="customizer-header">
-    <div>
-      <h2>Personalizar</h2>
-      <span>Customize your SND</span>
-    </div>
-
-    <button id="closeCustomizer" class="close-button">
-      ×
-    </button>
-  </div>
-
-  <div class="customizer-content">
-
-    <!-- TEMAS -->
-
-    <section class="settings-section">
-
-      <h3>Tema</h3>
-
-      <div class="theme-grid">
-
-        <button class="theme-card" data-theme="white">
-          <div class="theme-preview white-preview"></div>
-          <span>White</span>
-        </button>
-
-        <button class="theme-card" data-theme="black">
-          <div class="theme-preview black-preview"></div>
-          <span>Black</span>
-        </button>
-
-        <button class="theme-card" data-theme="color">
-          <div class="theme-preview color-preview"></div>
-          <span>Color</span>
-        </button>
-
+    <header class="topbar">
+      <div>
+        <h1>SND</h1>
+        <span class="subtitle">Sound Library</span>
       </div>
 
-    </section>
-
-
-    <!-- COLORES -->
-
-    <section class="settings-section">
-
-      <h3>Colores</h3>
-
-      <div class="color-setting">
-        <label for="backgroundColor">
-          Fondo
-        </label>
-
-        <input
-          type="color"
-          id="backgroundColor"
-          value="#f4f4f4"
-        >
-      </div>
-
-
-      <div class="color-setting">
-        <label for="buttonColor">
-          Botones
-        </label>
-
-        <input
-          type="color"
-          id="buttonColor"
-          value="#111111"
-        >
-      </div>
-
-
-      <div class="color-setting">
-        <label for="textColor">
-          Texto
-        </label>
-
-        <input
-          type="color"
-          id="textColor"
-          value="#111111"
-        >
-      </div>
-
-    </section>
-
-
-    <!-- FONDO -->
-
-    <section class="settings-section">
-
-      <h3>Fondo</h3>
-
-      <label class="upload-button">
-
-        🖼 Cambiar imagen
-
-        <input
-          type="file"
-          id="backgroundImage"
-          accept="image/*"
-          hidden
-        >
-
-      </label>
-
-      <button
-        id="removeBackground"
-        class="secondary-button"
-      >
-        Quitar fondo
+      <button id="customizeBtn" class="icon-button" title="Personalizar">
+        ⚙
       </button>
+    </header>
 
-    </section>
+    <main>
 
+      <section class="sounds-section">
 
-    <!-- BOTONES -->
+        <div class="section-header">
+          <h2>Sounds</h2>
+          <span id="soundCount">0 sounds</span>
+        </div>
 
-    <section class="settings-section">
+        <div id="soundGrid" class="sound-grid"></div>
 
-      <h3>Botones</h3>
+      </section>
 
-      <label>
-        Tamaño
-      </label>
+    </main>
 
-      <input
-        id="buttonSize"
-        type="range"
-        min="70"
-        max="180"
-        value="100"
-      >
+    <!-- PANEL DE PERSONALIZACIÓN -->
 
-      <div class="range-value">
-        <span id="buttonSizeValue">100%</span>
+    <aside id="customizer" class="customizer">
+
+      <div class="customizer-header">
+
+        <div>
+          <h2>Personalizar</h2>
+          <span>Customize your SND</span>
+        </div>
+
+        <button id="closeCustomizer" class="close-button">
+          ×
+        </button>
+
       </div>
 
+      <div class="customizer-content">
 
-      <label>
-        Redondeo
-      </label>
+        <!-- TEMAS -->
 
-      <input
-        id="buttonRadius"
-        type="range"
-        min="0"
-        max="40"
-        value="10"
-      >
+        <section class="settings-section">
 
-      <div class="range-value">
-        <span id="buttonRadiusValue">10px</span>
+          <h3>Tema</h3>
+
+          <div class="theme-grid">
+
+            <button class="theme-card" data-theme="white">
+              <div class="theme-preview white-preview"></div>
+              <span>White</span>
+            </button>
+
+            <button class="theme-card" data-theme="black">
+              <div class="theme-preview black-preview"></div>
+              <span>Black</span>
+            </button>
+
+            <button class="theme-card" data-theme="color">
+              <div class="theme-preview color-preview"></div>
+              <span>Color</span>
+            </button>
+
+          </div>
+
+        </section>
+
+        <!-- COLORES -->
+
+        <section class="settings-section">
+
+          <h3>Colores</h3>
+
+          <div class="color-setting">
+            <label for="backgroundColor">Fondo</label>
+
+            <input
+              type="color"
+              id="backgroundColor"
+              value="#f4f4f4"
+            >
+          </div>
+
+          <div class="color-setting">
+            <label for="buttonColor">Botones</label>
+
+            <input
+              type="color"
+              id="buttonColor"
+              value="#111111"
+            >
+          </div>
+
+          <div class="color-setting">
+            <label for="textColor">Texto</label>
+
+            <input
+              type="color"
+              id="textColor"
+              value="#111111"
+            >
+          </div>
+
+        </section>
+
+        <!-- FONDO -->
+
+        <section class="settings-section">
+
+          <h3>Fondo</h3>
+
+          <label class="upload-button">
+            🖼 Cambiar imagen
+
+            <input
+              type="file"
+              id="backgroundImage"
+              accept="image/*"
+              hidden
+            >
+          </label>
+
+          <button
+            id="removeBackground"
+            class="secondary-button"
+          >
+            Quitar fondo
+          </button>
+
+        </section>
+
+        <!-- BOTONES -->
+
+        <section class="settings-section">
+
+          <h3>Botones</h3>
+
+          <label>Tamaño</label>
+
+          <input
+            id="buttonSize"
+            type="range"
+            min="70"
+            max="180"
+            value="100"
+          >
+
+          <div class="range-value">
+            <span id="buttonSizeValue">100%</span>
+          </div>
+
+          <label>Redondeo</label>
+
+          <input
+            id="buttonRadius"
+            type="range"
+            min="0"
+            max="40"
+            value="10"
+          >
+
+          <div class="range-value">
+            <span id="buttonRadiusValue">10px</span>
+          </div>
+
+        </section>
+
+        <!-- NOMBRE -->
+
+        <section class="settings-section">
+
+          <h3>Nombre de sonidos</h3>
+
+          <p class="setting-description">
+            SND limpia automáticamente los nombres de los archivos.
+          </p>
+
+          <div class="name-example">
+            <span>romanceeeeee.mp3</span>
+            <strong>→</strong>
+            <span id="nameExample">Romance</span>
+          </div>
+
+          <div class="name-example">
+            <span>20-20-20-7.wav</span>
+            <strong>→</strong>
+            <span>20 20 20 7</span>
+          </div>
+
+        </section>
+
       </div>
 
-    </section>
-
-
-    <!-- NOMBRE -->
-
-    <section class="settings-section">
-
-      <h3>Nombre de sonidos</h3>
-
-      <p class="setting-description">
-        SND limpia automáticamente los nombres de los archivos.
-      </p>
-
-      <div class="name-example">
-        <span>romanceeeeee.mp3</span>
-        <strong>→</strong>
-        <span id="nameExample">Romance</span>
-      </div>
-
-      <div class="name-example">
-        <span>20-20-20-7.wav</span>
-        <strong>→</strong>
-        <span>20 20 20 7</span>
-      </div>
-
-    </section>
-
-  </div>
-
-</aside>
-```
+    </aside>
 
   </div>
 
